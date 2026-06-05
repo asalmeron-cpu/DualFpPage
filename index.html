@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,835 +17,283 @@
     --muted: #64748b;
     --border: #1e1e2e;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Sora', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.4;
-  }
-
-  /* ── SIDEBAR NAV ── */
-  nav {
-    position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 220px;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 2rem 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-  }
-
-  nav .brand {
-    padding: 0 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 1.5rem;
-  }
-
-  nav .brand .mono {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.3rem;
-  }
-
-  nav .brand h2 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.3;
-  }
-
-  nav a {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 1.5rem;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-    border-left: 2px solid transparent;
-  }
-
-  nav a:hover, nav a.active {
-    color: var(--accent);
-    border-left-color: var(--accent);
-    background: rgba(110,231,183,0.05);
-  }
-
-  nav a .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    flex-shrink: 0;
-  }
-
-  /* ── MAIN ── */
-  main {
-    margin-left: 220px;
-    padding: 0 3rem 4rem;
-    max-width: 960px;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    padding: 5rem 0 4rem;
-    position: relative;
-  }
-
-  .hero::after {
-    content: 'DAM';
-    position: absolute;
-    right: -1rem;
-    top: 2rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 120px;
-    font-weight: 700;
-    color: var(--surface2);
-    z-index: -1;
-    letter-spacing: -0.05em;
-    user-select: none;
-  }
-
-  .hero .tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .hero .tag::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 700;
-    line-height: 1.15;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-
-  .hero h1 span {
-    color: var(--accent);
-  }
-
-  .hero-meta {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
-
-  .hero-meta .item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .hero-meta .label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .hero-meta .value {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .hero-meta .value.highlight {
-    color: var(--accent);
-    font-size: 20px;
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ── SECTION ── */
-  section {
-    margin-bottom: 4rem;
-    animation: fadeUp 0.6s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--accent2);
-    background: rgba(129,140,248,0.1);
-    border: 1px solid rgba(129,140,248,0.2);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    flex-shrink: 0;
-  }
-
-  .section-header h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-
-  /* ── CARD ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .card:hover {
-    border-color: rgba(110,231,183,0.3);
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: linear-gradient(180deg, var(--accent), var(--accent2));
-    border-radius: 2px 0 0 2px;
-  }
-
-  .card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-
-  .card p {
-    color: #94a3b8;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  /* ── TWO COL ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  /* ── TIMELINE ── */
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 7px; top: 8px; bottom: 8px;
-    width: 1px;
-    background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent3));
-    opacity: 0.4;
-  }
-
-  .tl-item {
-    position: relative;
-    margin-bottom: 2.5rem;
-  }
-
-  .tl-item::before {
-    content: '';
-    position: absolute;
-    left: -1.65rem;
-    top: 6px;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
-  }
-
-  .tl-month {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-
-  .tl-item h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--text);
-  }
-
-  .tl-item p {
-    color: #94a3b8;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .tl-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.8rem;
-  }
-
-  .tl-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    border: 1px solid;
-    letter-spacing: 0.05em;
-  }
-
-  .tl-tag.green { color: var(--accent); border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.05); }
-  .tl-tag.purple { color: var(--accent2); border-color: rgba(129,140,248,0.3); background: rgba(129,140,248,0.05); }
-  .tl-tag.pink { color: var(--accent3); border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.05); }
-
-  /* ── TECH GRID ── */
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.8rem;
-  }
-
-  .tech-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-    transition: all 0.2s;
-  }
-
-  .tech-item:hover {
-    border-color: var(--accent);
-    background: rgba(110,231,183,0.05);
-    transform: translateY(-2px);
-  }
-
-  .tech-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .tech-name {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  .tech-type {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 0.2rem;
-  }
-
-  /* ── INFO TABLE ── */
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .info-table tr {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .info-table tr:last-child {
-    border-bottom: none;
-  }
-
-  .info-table td {
-    padding: 0.8rem 0;
-    font-size: 14px;
-  }
-
-  .info-table td:first-child {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    width: 160px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    vertical-align: top;
-    padding-top: 1rem;
-  }
-
-  .info-table td:last-child {
-    color: var(--text);
-  }
-
-  /* ── DIVIDER ── */
-  hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 3rem 0;
-  }
-
-  /* ── HIGHLIGHT BOX ── */
-  .highlight-box {
-    background: linear-gradient(135deg, rgba(110,231,183,0.08), rgba(129,140,248,0.08));
-    border: 1px solid rgba(110,231,183,0.2);
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .highlight-box p {
-    color: #cbd5e1;
-    font-size: 15px;
-    line-height: 1.8;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    margin-left: 220px;
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { display: none; }
-    main { margin-left: 0; padding: 1.5rem; }
-    footer { margin-left: 0; }
-    .two-col { grid-template-columns: 1fr; }
-    .hero::after { display: none; }
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Sora', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+  nav { position: fixed; left: 0; top: 0; bottom: 0; width: 210px; background: var(--surface); border-right: 1px solid var(--border); padding: 2rem 0; z-index: 100; display: flex; flex-direction: column; }
+  nav .brand { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+  nav .brand .mono { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  nav .brand h2 { font-size: 14px; font-weight: 700; }
+  nav a { display: flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.5rem; color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; }
+  nav a:hover, nav a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(110,231,183,0.05); }
+  nav a .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  main { margin-left: 210px; padding: 0 3rem 4rem; max-width: 900px; }
+  .hero { padding: 4rem 0 3rem; }
+  .hero .tag { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .hero .tag::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
+  .hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .hero h1 span { color: var(--accent); }
+  .hero-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+  .hero-meta .item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .hero-meta .label { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero-meta .value { font-size: 14px; font-weight: 600; }
+  .hero-meta .value.big { color: var(--accent); font-size: 22px; font-family: 'Space Mono', monospace; }
+  section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent2); background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.2); padding: 0.2rem 0.6rem; border-radius: 4px; }
+  .section-header h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; margin-bottom: 1rem; border-left: 3px solid var(--accent); }
+  .card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card p, .card td { color: #94a3b8; font-size: 14px; line-height: 1.7; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-bottom: 1px solid var(--border); }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table td { padding: 0.7rem 0; font-size: 14px; color: #94a3b8; }
+  .info-table td:first-child { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); width: 150px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .timeline { padding-left: 1.8rem; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent3)); opacity: 0.3; }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-item::before { content: ''; position: absolute; left: -1.5rem; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .tl-month { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .tl-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .tl-item p { color: #94a3b8; font-size: 14px; line-height: 1.7; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+  .tl-tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 0.15rem 0.5rem; border-radius: 4px; border: 1px solid; }
+  .tl-tag.g { color: var(--accent); border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.05); }
+  .tl-tag.p { color: var(--accent2); border-color: rgba(129,140,248,0.3); background: rgba(129,140,248,0.05); }
+  .tl-tag.r { color: var(--accent3); border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.05); }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.7rem; }
+  .tech-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem; text-align: center; transition: all 0.2s; }
+  .tech-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .tech-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .tech-name { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; }
+  .tech-type { font-size: 11px; color: var(--muted); margin-top: 0.1rem; }
+  footer { margin-left: 210px; padding: 1.5rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+  footer p { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+  @media (max-width: 768px) { nav { display: none; } main, footer { margin-left: 0; padding: 1.5rem; } .two-col { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="brand">
     <div class="mono">Dual FP · DAM</div>
     <h2>Arnau Salmero</h2>
   </div>
-  <a href="#presentacio" class="active"><span class="dot"></span> Presentació</a>
+  <a href="#presentacio"><span class="dot"></span> Presentació</a>
   <a href="#entitat"><span class="dot"></span> Entitat</a>
-  <a href="#estada"><span class="dot"></span> Dades de l'estada</a>
+  <a href="#estada"><span class="dot"></span> Estada</a>
   <a href="#relacions"><span class="dot"></span> Relacions</a>
-  <a href="#diari"><span class="dot"></span> Diari de pràctiques</a>
+  <a href="#diari"><span class="dot"></span> Diari</a>
   <a href="#tecnologies"><span class="dot"></span> Tecnologies</a>
-  <a href="#valoracio"><span class="dot"></span> Valoració</a>
 </nav>
 
-<!-- MAIN -->
 <main>
-
-  <!-- HERO -->
   <div class="hero">
     <div class="tag">Memòria de pràctiques</div>
     <h1>Estada Dual FP<br><span>Binsa Software</span></h1>
     <div class="hero-meta">
-      <div class="item">
-        <span class="label">Alumne</span>
-        <span class="value">Arnau Salmero</span>
-      </div>
-      <div class="item">
-        <span class="label">Empresa</span>
-        <span class="value">Binsa Software</span>
-      </div>
-      <div class="item">
-        <span class="label">Hores totals</span>
-        <span class="value highlight">1.000h</span>
-      </div>
-      <div class="item">
-        <span class="label">Cicle</span>
-        <span class="value">DAM · CFGS</span>
-      </div>
-      <div class="item">
-        <span class="label">Període</span>
-        <span class="value">Nov 2025 — Jun 2026</span>
-      </div>
+      <div class="item"><span class="label">Alumne</span><span class="value">Arnau Salmero</span></div>
+      <div class="item"><span class="label">Empresa</span><span class="value">Binsa Software</span></div>
+      <div class="item"><span class="label">Hores</span><span class="value big">1.000h</span></div>
+      <div class="item"><span class="label">Cicle</span><span class="value">DAM · CFGS</span></div>
+      <div class="item"><span class="label">Període</span><span class="value">Nov 2025 — Jun 2026</span></div>
     </div>
   </div>
 
-  <!-- 1. PRESENTACIÓ -->
   <section id="presentacio">
     <div class="section-header">
       <span class="section-num">01</span>
-      <h2>Presentació de l'alumne</h2>
+      <h2>Presentació</h2>
     </div>
-
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <h3>Qui sóc</h3>
-      <p>Em dic <strong>Arnau Salmero</strong> i resideixo a Terrassa. Estudio el cicle formatiu de grau superior de <strong>Desenvolupament d'Aplicacions Multiplataforma (DAM)</strong> a l'Institut Nicolau Copèrnic, centre públic situat al carrer Torrent del Batlle 10, Terrassa. El centre ofereix diversos cicles formatius de les famílies d'Informàtica i Administració, amb centenars d'alumnes matriculats.</p>
-    </div>
-
     <div class="two-col">
       <div class="card">
-        <h3>Cicle formatiu</h3>
-        <p>DAM (Desenvolupament d'Aplicacions Multiplataforma) és un cicle de <strong>Grau Superior</strong> pertanyent a la família professional d'<strong>Informàtica i Comunicacions</strong>. Forma tècnics superiors capaços de desenvolupar, implantar i mantenir aplicacions en múltiples plataformes.</p>
+        <h3>Alumne</h3>
+        <table class="info-table">
+          <tr><td>Nom</td><td>Arnau Salmero</td></tr>
+          <tr><td>Població</td><td>Terrassa</td></tr>
+          <tr><td>Institut</td><td>Institut Nicolau Copèrnic</td></tr>
+          <tr><td>Cicle</td><td>DAM — Grau Superior</td></tr>
+          <tr><td>Família</td><td>Informàtica i Comunicacions</td></tr>
+          <tr><td>Modalitat</td><td>Dual FP</td></tr>
+        </table>
       </div>
       <div class="card">
-        <h3>Modalitat Dual</h3>
-        <p>La modalitat Dual FP combina la formació al centre educatiu amb l'activitat laboral real a l'empresa. Vaig escollir aquesta modalitat perquè em permetia aprendre en un entorn professional real des del primer moment, accelerant significativament l'adquisició de competències tècniques.</p>
+        <h3>Institut Nicolau Copèrnic</h3>
+        <p>Centre públic situat a Terrassa (carrer Torrent del Batlle, 10). Ofereix cicles formatius de les famílies d'Informàtica i Comunicacions, entre d'altres.</p>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>Motivació i objectius</h3>
-      <p>Em va atreure el DAM per la seva orientació pràctica i la diversitat de tecnologies que abasta: des del desenvolupament web fins a les aplicacions mòbils. Amb aquesta estada volia consolidar coneixements de programació en entorns reals, aprendre a treballar en equip en un departament de software, adquirir experiència amb tecnologies com C#, .NET, Android Studio i bases de dades relacionals, i entendre el cicle complet d'un producte software: des del disseny fins al manteniment.</p>
     </div>
   </section>
 
-  <!-- 2. ENTITAT -->
   <section id="entitat">
     <div class="section-header">
       <span class="section-num">02</span>
       <h2>Dades de l'entitat</h2>
     </div>
-
-    <div class="card" style="margin-bottom:1rem;">
+    <div class="card">
       <h3>Binsa Software</h3>
-      <p>Empresa de desenvolupament de software especialitzada en solucions de gestió empresarial (ERP) i aplicacions mòbils per a operaris (PDA). Dóna servei a clients de diversos sectors que necessiten gestionar processos logístics, comercials i d'emmagatzematge mitjançant aplicacions web i mòbil integrades.</p>
+      <p>Empresa de desenvolupament de software especialitzada en un ERP propi per a la gestió empresarial, amb una aplicació mòbil (PDA) per a operaris que es sincronitza amb la plataforma web.</p>
     </div>
-
     <div class="two-col">
       <div class="card">
-        <h3>Departament de Desenvolupament Web</h3>
-        <p>S'encarrega del manteniment i evolució de l'aplicació web principal, construïda amb <strong>ASP.NET MVC i C#</strong>. Gestiona incidències, adaptacions per a clients i nous desenvolupaments sobre la plataforma web.</p>
+        <h3>Departament Desenvolupament Web</h3>
+        <p>Manteniment i evolució de l'ERP web. Tecnologies: C# i ASP.NET MVC.</p>
       </div>
       <div class="card">
         <h3>Departament PDA</h3>
-        <p>Dóna suport i desenvolupa l'aplicació mòbil per a operaris, feta en <strong>Java/XML per Android</strong>. Gestiona la sincronització amb l'aplicació web, atén incidències de clients i analitza noves funcionalitats sol·licitades.</p>
+        <p>Suport i desenvolupament de l'aplicació mòbil per a operaris. Tecnologies: Android Studio, Java i XML.</p>
       </div>
     </div>
-
     <div class="card">
-      <h3>Infraestructura i eines</h3>
+      <h3>Eines i infraestructura</h3>
       <table class="info-table">
-        <tr><td>Control de versions</td><td>Subversion (SVN)</td></tr>
-        <tr><td>Desenvolupament web</td><td>Visual Studio, C#, ASP.NET MVC</td></tr>
-        <tr><td>Mòbil</td><td>Android Studio, Java, XML</td></tr>
+        <tr><td>Control versions</td><td>Subversion (SVN)</td></tr>
+        <tr><td>Desenvolupament web</td><td>C#, ASP.NET MVC</td></tr>
         <tr><td>Informes</td><td>SAP Crystal Reports</td></tr>
-        <tr><td>Bases de dades</td><td>SQL Server (consultes i informes)</td></tr>
-        <tr><td>Serveis</td><td>C# / .NET (sincronització PDA ↔ web)</td></tr>
+        <tr><td>Bases de dades</td><td>SQL Server</td></tr>
+        <tr><td>Mòbil</td><td>Android Studio, Java, XML</td></tr>
+        <tr><td>Serveis sync</td><td>C# / .NET</td></tr>
       </table>
     </div>
   </section>
 
-  <!-- 3. DADES ESTADA -->
   <section id="estada">
     <div class="section-header">
       <span class="section-num">03</span>
       <h2>Dades de l'estada</h2>
     </div>
-
-    <div class="highlight-box">
-      <p>L'estada s'ha realitzat en modalitat <strong>Dual FP</strong> amb contracte/beca, durant un total de <strong>1.000 hores</strong> compreses entre novembre de 2025 i juny de 2026.</p>
-    </div>
-
     <div class="card">
       <table class="info-table">
-        <tr><td>Modalitat</td><td>Becari / Contractat en modalitat Dual FP</td></tr>
-        <tr><td>Hores totals</td><td><strong>1.000 hores</strong></td></tr>
+        <tr><td>Modalitat</td><td>Dual FP</td></tr>
+        <tr><td>Hores totals</td><td>1.000 hores</td></tr>
         <tr><td>Inici</td><td>Novembre 2025</td></tr>
         <tr><td>Finalització</td><td>Juny 2026</td></tr>
-        <tr><td>Durada</td><td>8 mesos</td></tr>
       </table>
     </div>
   </section>
 
-  <!-- 4. RELACIONS -->
   <section id="relacions">
     <div class="section-header">
       <span class="section-num">04</span>
-      <h2>Relacions professionals i seguiment</h2>
+      <h2>Relacions i seguiment</h2>
     </div>
-
     <div class="two-col">
       <div class="card">
         <h3>Tutor de l'institut</h3>
-        <p>Tutor assignat per l'Institut Nicolau Copèrnic per al seguiment de l'estada dual, amb qui es mantenia una comunicació periòdica per revisar el progrés i resoldre possibles incidències.</p>
+        <p>Albert</p>
       </div>
       <div class="card">
         <h3>Tutor de l'entitat</h3>
-        <p>Durant la primera part de l'estada vaig treballar prop de <strong>Lucas</strong> (departament web) i a partir d'abril amb <strong>Gorka</strong> (departament PDA), qui va ser el meu referent fins que va deixar l'empresa.</p>
+        <p>Kiko</p>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>Comunicació i ambient de treball</h3>
-      <p>La relació amb els companys de l'empresa ha estat molt positiva. En els primers mesos el company Lucas em va introduir al món del desenvolupament web i la base de codi. Posteriorment, Gorka em va formar exhaustivament en tot el que concernia el departament PDA. La transició va ser natural gràcies al bon ambient d'equip i a la disposició dels companys per resoldre dubtes. La doble tutoria institut-empresa ha funcionat correctament, permetent un seguiment coherent de l'evolució de les tasques.</p>
     </div>
   </section>
 
-  <!-- 5. DIARI -->
   <section id="diari">
     <div class="section-header">
       <span class="section-num">05</span>
       <h2>Diari de pràctiques</h2>
     </div>
-
     <div class="timeline">
 
       <div class="tl-item">
         <div class="tl-month">Novembre 2025</div>
         <h3>Incorporació i formació inicial</h3>
-        <p>El primer mes va consistir en una immersió al funcionament de l'empresa: lectura de manuals interns, documentació corporativa i realització de cursos de JavaScript. Vaig realitzar les primeres tasques senzilles com pujar fitxers via Subversion (SVN), organitzar documentació i preparar estudis interns. Aquesta fase va servir per entendre l'entorn de treball i adaptar-me a la dinàmica de l'equip.</p>
-        <div class="tl-tags">
-          <span class="tl-tag green">SVN</span>
-          <span class="tl-tag green">JavaScript</span>
-          <span class="tl-tag purple">Documentació</span>
-        </div>
+        <p>Lectura de manuales interns i documentació de l'empresa. Cursos de JavaScript. Primeres tasques: pujar fitxers via SVN, organitzar documentació i preparar estudis interns.</p>
+        <div class="tl-tags"><span class="tl-tag g">SVN</span><span class="tl-tag g">JavaScript</span><span class="tl-tag p">Documentació</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Desembre 2025</div>
-        <h3>Documentació i testing d'aplicacions</h3>
-        <p>Vaig començar a crear i actualitzar manuales relacionats amb projectes del Kit Digital. A més, vaig iniciar proves funcionals d'aplicacions web de nous clients, documentant errors i comportaments inesperats per als desenvolupadors. Vaig aprendre com estan construïdes les aplicacions i quins aspectes cal tenir en compte durant les proves.</p>
-        <div class="tl-tags">
-          <span class="tl-tag purple">Manuales</span>
-          <span class="tl-tag purple">Kit Digital</span>
-          <span class="tl-tag green">QA / Testing</span>
-        </div>
+        <h3>Documentació i testing</h3>
+        <p>Creació i actualització de manuales. Proves funcionals d'aplicacions web de nous clients, documentant errors per als desenvolupadors. Tasques relacionades amb projectes del Kit Digital.</p>
+        <div class="tl-tags"><span class="tl-tag p">Manuales</span><span class="tl-tag g">QA / Testing</span><span class="tl-tag p">Kit Digital</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Gener 2026</div>
-        <h3>Observació en desenvolupament web — C# i MVC</h3>
-        <p>Vaig passar molt temps al costat de Lucas observant com treballava al departament de desenvolupament web. Vaig conèixer la base de codi en C#, l'arquitectura MVC (models, vistes, controladors) i la relació amb les bases de dades. Encara sense fer grans canvis pel meu compte, el valor d'aquest mes va ser entendre la lògica del codi en un projecte real.</p>
-        <div class="tl-tags">
-          <span class="tl-tag green">C#</span>
-          <span class="tl-tag green">ASP.NET MVC</span>
-          <span class="tl-tag purple">SQL</span>
-        </div>
+        <h3>Observació en desenvolupament web</h3>
+        <p>Observació del treball del company Lucas al departament web. Aprenentatge de C#, arquitectura MVC (models, vistes, controladors) i relació amb la base de dades.</p>
+        <div class="tl-tags"><span class="tl-tag g">C#</span><span class="tl-tag g">ASP.NET MVC</span><span class="tl-tag p">SQL</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Febrer 2026</div>
-        <h3>Primeres tasques de programació — Crystal Reports</h3>
-        <p>Vaig realitzar els primers canvis de codi reals: afegir camps a formularis, petites modificacions per a clients i correccions visuals. Una part important del mes va ser aprendre SAP Crystal Reports per modificar informes i PDFs personalitzats per a clients, aprenent a construir consultes SQL per extreure la informació necessària.</p>
-        <div class="tl-tags">
-          <span class="tl-tag green">C#</span>
-          <span class="tl-tag pink">Crystal Reports</span>
-          <span class="tl-tag purple">SQL</span>
-        </div>
+        <h3>Primeres tasques de programació i Crystal Reports</h3>
+        <p>Primers canvis de codi: nous camps en formularis, petites modificacions per a clients i correccions visuals. Modificació d'informes i PDFs personalitzats amb Crystal Reports mitjançant consultes SQL.</p>
+        <div class="tl-tags"><span class="tl-tag g">C#</span><span class="tl-tag r">Crystal Reports</span><span class="tl-tag p">SQL</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Març 2026</div>
-        <h3>Major autonomia i lògica de negoci</h3>
-        <p>Vaig guanyar autonomia progressivament. Continuava adaptant informes de Crystal Reports per a clients i participava en la correcció d'incidències i petits canvis dins de l'aplicació web. Vaig aprofundir en la comprensió de la lògica de negoci i en com les diferents parts de les aplicacions es connecten amb les bases de dades.</p>
-        <div class="tl-tags">
-          <span class="tl-tag pink">Crystal Reports</span>
-          <span class="tl-tag green">Incidències</span>
-          <span class="tl-tag purple">Lògica de negoci</span>
-        </div>
+        <h3>Major autonomia i incidències</h3>
+        <p>Continuació amb Crystal Reports i adaptació de listats per a clients. Participació en la correcció d'incidències i petits canvis a l'aplicació web.</p>
+        <div class="tl-tags"><span class="tl-tag r">Crystal Reports</span><span class="tl-tag g">Incidències</span><span class="tl-tag p">SQL</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Abril 2026</div>
-        <h3>Incorporació al departament PDA — Formació amb Gorka</h3>
-        <p>A finals d'abril es va produir un canvi important: em van traslladar al departament PDA per aprendre les funcions d'un company (Gorka) que deixaria l'empresa. Durant tot el mes vaig aprendre el funcionament de l'aplicació PDA, els problemes habituals dels clients, la gestió d'incidències i com analitzaven les sol·licituds de millora. Va ser un mes intens de formació.</p>
-        <div class="tl-tags">
-          <span class="tl-tag pink">PDA</span>
-          <span class="tl-tag purple">Gestió incidències</span>
-          <span class="tl-tag green">Formació</span>
-        </div>
+        <h3>Incorporació al departament PDA</h3>
+        <p>Trasllat al departament PDA per aprendre les funcions del company Gorka, que deixaria l'empresa. Mes de formació: funcionament de l'aplicació, problemes habituals de clients i gestió d'incidències.</p>
+        <div class="tl-tags"><span class="tl-tag r">PDA</span><span class="tl-tag p">Gestió incidències</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Maig 2026</div>
-        <h3>Assumpció de responsabilitats PDA — Android Studio</h3>
-        <p>Quan Gorka va deixar l'empresa, vaig assumir les seves responsabilitats progressivament: atenció de trucades de clients, revisió diària d'errors registrats per l'aplicació i anàlisi d'incidències. A més, vaig actuar com a analista recopilant informació per a noves funcionalitats. Vaig iniciar l'aprenentatge d'Android Studio i del codi Java/XML de l'aplicació PDA.</p>
-        <div class="tl-tags">
-          <span class="tl-tag pink">Android Studio</span>
-          <span class="tl-tag green">Java / XML</span>
-          <span class="tl-tag purple">Suport clients</span>
-        </div>
+        <h3>Assumpció de responsabilitats PDA</h3>
+        <p>Quan Gorka va marxar, vaig assumir les seves tasques: atenció de trucades de clients, revisió diària d'errors de l'aplicació i anàlisi d'incidències. Inici amb Android Studio i el codi Java/XML de la PDA.</p>
+        <div class="tl-tags"><span class="tl-tag r">Android Studio</span><span class="tl-tag g">Java / XML</span><span class="tl-tag p">Suport clients</span></div>
       </div>
 
       <div class="tl-item">
         <div class="tl-month">Juny 2026</div>
-        <h3>Desenvolupament Android, sincronització i correcció d'errors</h3>
-        <p>El mes actual consolida tot el recorregut. Participo en el desenvolupament de l'aplicació Android: noves validacions, canvis en camps, correcció de bugs i millores sol·licitades per clients. He comprès el flux de sincronització entre la PDA i l'aplicació web gràcies als serveis C#/.NET. La correcció d'errors és ara el nucli del meu treball, amb un impacte directe en l'estabilitat de l'aplicació per als clients.</p>
-        <div class="tl-tags">
-          <span class="tl-tag pink">Android</span>
-          <span class="tl-tag green">C# / .NET</span>
-          <span class="tl-tag purple">Bugs & fixes</span>
-        </div>
+        <h3>Desenvolupament Android i correcció d'errors</h3>
+        <p>Desenvolupament dins l'aplicació Android: noves validacions, canvis en camps i correcció de bugs. Aprenentatge de la sincronització PDA ↔ web a través dels serveis C#/.NET.</p>
+        <div class="tl-tags"><span class="tl-tag r">Android</span><span class="tl-tag g">C# / .NET</span><span class="tl-tag p">Bugs & fixes</span></div>
       </div>
 
     </div>
   </section>
 
-  <!-- TECNOLOGIES -->
   <section id="tecnologies">
     <div class="section-header">
       <span class="section-num">06</span>
       <h2>Tecnologies utilitzades</h2>
     </div>
-
     <div class="tech-grid">
-      <div class="tech-item">
-        <div class="tech-icon">🔷</div>
-        <div class="tech-name">C#</div>
-        <div class="tech-type">Llenguatge</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🌐</div>
-        <div class="tech-name">ASP.NET MVC</div>
-        <div class="tech-type">Framework web</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">📱</div>
-        <div class="tech-name">Android Studio</div>
-        <div class="tech-type">IDE mòbil</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">☕</div>
-        <div class="tech-name">Java / XML</div>
-        <div class="tech-type">Android dev</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🗄️</div>
-        <div class="tech-name">SQL Server</div>
-        <div class="tech-type">Base de dades</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">📊</div>
-        <div class="tech-name">Crystal Reports</div>
-        <div class="tech-type">Informes</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🔧</div>
-        <div class="tech-name">.NET</div>
-        <div class="tech-type">Serveis sync</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">📦</div>
-        <div class="tech-name">SVN</div>
-        <div class="tech-type">Control versions</div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-icon">🟨</div>
-        <div class="tech-name">JavaScript</div>
-        <div class="tech-type">Scripting web</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. VALORACIÓ -->
-  <section id="valoracio">
-    <div class="section-header">
-      <span class="section-num">07</span>
-      <h2>Valoració personal de l'estada Dual</h2>
-    </div>
-
-    <div class="highlight-box" style="margin-bottom:1.5rem;">
-      <p>L'estada dual a Binsa Software ha suposat una transformació important en la meva visió del que significa ser desenvolupador. Arribar a una empresa real, amb clients reals i problemes reals, és radicalment diferent del que s'experimenta a l'aula.</p>
-    </div>
-
-    <div class="card">
-      <h3>Aprenentatge tècnic</h3>
-      <p>He passat de no conèixer C# ni l'arquitectura MVC a participar activament en el manteniment d'una aplicació web real. He après a escriure consultes SQL, a modificar informes amb Crystal Reports i, sobretot, a entendre com els serveis .NET connecten el món mòbil amb el servidor. El salt cap al món Android ha ampliat encara més la meva visió del desenvolupament multiplataforma.</p>
-    </div>
-
-    <div class="card">
-      <h3>Aprenentatge professional</h3>
-      <p>Més enllà de la tècnica, he après a gestionar incidències de clients, a prioritzar tasques, a comunicar-me amb companys de departaments i a documentar correctament la feina. Assumir les responsabilitats de Gorka quan va marxar va ser un repte exigent que em va obligar a créixer ràpidament i a demostrar que era capaç de respondre amb autonomia.</p>
-    </div>
-
-    <div class="card">
-      <h3>Conclusió</h3>
-      <p>La modalitat Dual FP ha estat, sense cap dubte, la millor decisió per completar la meva formació. Les 1.000 hores d'estada m'han aportat un bagatge que hauria trigat molt més temps a adquirir per altres vies. Surto amb coneixements sòlids en C#, .NET, Android i SQL, i amb la seguretat d'haver treballat en un equip professional real aportant valor des del primer dia.</p>
+      <div class="tech-item"><div class="tech-icon">🔷</div><div class="tech-name">C#</div><div class="tech-type">Llenguatge</div></div>
+      <div class="tech-item"><div class="tech-icon">🌐</div><div class="tech-name">ASP.NET MVC</div><div class="tech-type">Framework web</div></div>
+      <div class="tech-item"><div class="tech-icon">📱</div><div class="tech-name">Android Studio</div><div class="tech-type">IDE mòbil</div></div>
+      <div class="tech-item"><div class="tech-icon">☕</div><div class="tech-name">Java / XML</div><div class="tech-type">Android</div></div>
+      <div class="tech-item"><div class="tech-icon">🗄️</div><div class="tech-name">SQL Server</div><div class="tech-type">Base de dades</div></div>
+      <div class="tech-item"><div class="tech-icon">📊</div><div class="tech-name">Crystal Reports</div><div class="tech-type">Informes</div></div>
+      <div class="tech-item"><div class="tech-icon">🔧</div><div class="tech-name">.NET</div><div class="tech-type">Serveis sync</div></div>
+      <div class="tech-item"><div class="tech-icon">📦</div><div class="tech-name">SVN</div><div class="tech-type">Control versions</div></div>
+      <div class="tech-item"><div class="tech-icon">🟨</div><div class="tech-name">JavaScript</div><div class="tech-type">Web</div></div>
     </div>
   </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <p>Arnau Salmero · DAM Dual FP · Institut Nicolau Copèrnic · Terrassa</p>
   <p>Binsa Software · Nov 2025 — Jun 2026 · 1.000h</p>
 </footer>
 
 <script>
-  // Active nav link on scroll
-  const sections = document.querySelectorAll('section[id], div[id]');
+  const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav a');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
         navLinks.forEach(l => l.classList.remove('active'));
-        const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
         if (link) link.classList.add('active');
       }
     });
   }, { threshold: 0.3 });
-
   sections.forEach(s => observer.observe(s));
-
-  // Stagger section animations
-  const allSections = document.querySelectorAll('section');
-  allSections.forEach((s, i) => {
-    s.style.animationDelay = `${i * 0.08}s`;
-  });
 </script>
 </body>
 </html>
